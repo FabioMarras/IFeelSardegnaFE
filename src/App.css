@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.login-container {
+  background-image: url("../public/myImg/fadi-al-shami-jTmbyBnbaIE-unsplash-scaled.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  color: rgb(0, 0, 0);
+}

@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import AlertRegister from "./AlertRegister";
+import Footer from "./Footer";
 
 const Register = () => {
   const [info, setInfo] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setInfo({
-      nome: "",
-      cognome: "",
+      name: "",
+      lastName: "",
       username: "",
       email: "",
       password: "",
@@ -30,7 +33,12 @@ const Register = () => {
         },
         body: JSON.stringify(info),
       });
-      navigate("/");
+      if (resp.ok) {
+        navigate("/login");
+      } else {
+        setError("Qualche campo non è corretto!");
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +63,9 @@ const Register = () => {
 
               <Form.Control
                 type="text"
-                value={info.nome}
-                onChange={(e) => changeInfo(e.target.value, "nome")}
-                placeholder="inserisci Nome"
+                value={info.name}
+                onChange={(e) => changeInfo(e.target.value, "name")}
+                placeholder="inserisci un nome con minimo 2 caratteri"
               />
             </Form.Group>
             <Form.Group className="mb-3  text-start">
@@ -67,9 +75,9 @@ const Register = () => {
 
               <Form.Control
                 type="text"
-                value={info.cognome}
-                onChange={(e) => changeInfo(e.target.value, "cognome")}
-                placeholder="inserisci Cognome"
+                value={info.lastName}
+                onChange={(e) => changeInfo(e.target.value, "lastName")}
+                placeholder="inserisci un cognome con minimo 2 caratteri"
               />
             </Form.Group>
             <Form.Group className="mb-3  text-start">
@@ -80,7 +88,7 @@ const Register = () => {
                 type="text"
                 value={info.username}
                 onChange={(e) => changeInfo(e.target.value, "username")}
-                placeholder="inserisci Username"
+                placeholder="inserisci uno username con minimo 4 caratteri"
               />
             </Form.Group>
             <Form.Group className="mb-3  text-start">
@@ -102,13 +110,15 @@ const Register = () => {
                 type="password"
                 value={info.password}
                 onChange={(e) => changeInfo(e.target.value, "password")}
-                placeholder="inserisci un Password"
+                placeholder="inserisci la tua Password"
               />
             </Form.Group>
+            <div>{error ? <AlertRegister message={error} /> : null}</div>
             <Button onClick={() => fetchRegisterUser()}>Registrati</Button>
           </Form>
         </Col>
       </Row>
+      <Footer />
     </Container>
   );
 };

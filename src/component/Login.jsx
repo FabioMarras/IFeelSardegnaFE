@@ -4,11 +4,14 @@ import { useDispatch } from "react-redux";
 import { SET_TOKEN, setToken } from "../redux/actions";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import AlertLogIn from "./AlertLogIn";
+import Footer from "./Footer";
 
 const Login = () => {
   const [info, setInfo] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setInfo({
@@ -30,19 +33,25 @@ const Login = () => {
         },
         body: JSON.stringify(info),
       });
-      const data = await resp.json();
-      dispatch(setToken(data));
-      navigate("/");
-      console.log(data);
+      if (resp.ok) {
+        const data = await resp.json();
+        dispatch(setToken(data));
+        navigate("/");
+        console.log(data);
+      } else {
+        setError("Credenziali non valide");
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
+      setError("Si è verificato un errore durante il login. Riprova più tardi.");
     }
   };
   return (
     <Container className="login-container">
       <NavBar />
-      <Row>
-        <Col xs="12" className="mt-5">
+      <Row className="justify-content-center">
+        <Col xs="8" className="mt-5">
           <h1 className="mt-4">I feel Sardegna</h1>
 
           <Row className="justify-content-end mt-5">
@@ -73,6 +82,7 @@ const Login = () => {
                   placeholder="inserisci un Password"
                 />
               </Form.Group>
+              <div>{error ? <AlertLogIn message={error} /> : null}</div>
               <div>
                 {" "}
                 <Button onClick={() => fetchLoginUser()}>Accedi</Button>
@@ -84,6 +94,7 @@ const Login = () => {
           </Row>
         </Col>
       </Row>
+      <Footer />
     </Container>
   );
 };

@@ -48,7 +48,7 @@ const Login = () => {
     }
   };
   return (
-    <Container className="login-container">
+    <div className="login-container">
       <NavBar />
       <Row className="justify-content-center">
         <Col xs="8" className="mt-5">
@@ -95,7 +95,7 @@ const Login = () => {
         </Col>
       </Row>
       <Footer />
-    </Container>
+    </div>
   );
 };
 

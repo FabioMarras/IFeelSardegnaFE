@@ -14,18 +14,21 @@ const NavBar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link href="/" className="fw-bolder">
-            Home
-          </Nav.Link>
           <Nav.Link href="/esperienze" className="fw-bolder">
-            Esperienze
+            <button class="cta">
+              <span class="hover-underline-animation"> Esperienze </span>
+            </button>
           </Nav.Link>
           <Nav.Link href="/province" className="fw-bolder">
-            Province e Capoluoghi
+            <button class="cta">
+              <span class="hover-underline-animation"> Province e Capoluoghi</span>
+            </button>
           </Nav.Link>
           {token ? (
             <Nav.Link href="/preferiti" className="fw-bolder">
-              Preferiti
+              <button class="cta">
+                <span class="hover-underline-animation"> Preferiti </span>
+              </button>
             </Nav.Link>
           ) : null}
         </Nav>
@@ -33,7 +36,11 @@ const NavBar = () => {
           {token ? (
             <Nav.Link href="/myProfile">{`Benvenuto ${userName}`}</Nav.Link>
           ) : (
-            <Nav.Link href="/login">Login/Registrati</Nav.Link>
+            <Nav.Link href="/login">
+              <button class="cta">
+                <span class="hover-underline-animation"> Login/Registrati </span>
+              </button>
+            </Nav.Link>
           )}
         </Nav>
       </Navbar.Collapse>

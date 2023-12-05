@@ -45,7 +45,7 @@ const Register = () => {
   };
 
   return (
-    <Container className="login-container">
+    <div className="login-container">
       <NavBar />
       <h1 className="mt-3">Registrati</h1>
 
@@ -119,7 +119,7 @@ const Register = () => {
         </Col>
       </Row>
       <Footer />
-    </Container>
+    </div>
   );
 };
 

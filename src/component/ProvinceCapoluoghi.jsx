@@ -40,7 +40,7 @@ const ProvinceCapoluoghi = () => {
       <h1>Province</h1>
       {province.map((province, index) => (
         <Row className="mb-5 mx-5">
-          <Col xs="6">
+          <Col xs="6" className="align-self-center">
             <img
               src={province.capoluoghi[0].cover}
               alt="img provincia"

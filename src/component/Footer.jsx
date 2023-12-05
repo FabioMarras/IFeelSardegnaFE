@@ -36,11 +36,6 @@ const Footer = () => {
                   Chi siamo
                 </a>
               </li>
-              <li>
-                <a href="#services" className="text-decoration-none text-black">
-                  Servizi
-                </a>
-              </li>
             </ul>
           </Col>
         </Row>

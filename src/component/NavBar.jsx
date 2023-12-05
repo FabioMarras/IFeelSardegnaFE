@@ -20,6 +20,9 @@ const NavBar = () => {
           <Nav.Link href="/esperienze" className="fw-bolder">
             Esperienze
           </Nav.Link>
+          <Nav.Link href="/province" className="fw-bolder">
+            Province e Capoluoghi
+          </Nav.Link>
           {token ? (
             <Nav.Link href="/preferiti" className="fw-bolder">
               Preferiti

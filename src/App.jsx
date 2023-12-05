@@ -6,6 +6,7 @@ import Login from "./component/Login";
 import Register from "./component/Register";
 import Esperienze from "./component/Esperienze";
 import ProvinceCapoluoghi from "./component/ProvinceCapoluoghi";
+import VacanzeEstive from "./component/VacanzeEstive";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/esperienze" element={<Esperienze />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
+          <Route path="/esperienze/estive" element={<VacanzeEstive />} />
+          <Route path="/esperienze/invernali" element={<VacanzeEstive />} />
+          <Route path="/esperienze/centritermali" element={<VacanzeEstive />} />
         </Routes>
       </BrowserRouter>
     </div>

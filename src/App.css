@@ -84,8 +84,8 @@
 
 .card {
   position: relative;
-  width: 200px;
-  height: 250px;
+  width: 250px;
+  height: 340px;
   border-radius: 14px;
   z-index: 1111;
   overflow: hidden;
@@ -100,8 +100,8 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  width: 190px;
-  height: 240px;
+  width: 239px;
+  height: 330px;
   z-index: 2;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
@@ -194,10 +194,40 @@
 
 .card1:hover {
   border: 1px solid black;
-  transform: scale(1.25);
+  transform: scale(1.35);
   z-index: 2;
 }
 
 .card1:active {
+  transform: scale(0.95) rotateZ(1.7deg);
+}
+
+.card2 {
+  box-sizing: border-box;
+  width: 230px;
+  height: 325px;
+  background: rgba(217, 217, 217, 0.58);
+  border: 1px solid white;
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  font-weight: bolder;
+  color: black;
+}
+
+.card2:hover {
+  border: 1px solid black;
+  transform: scale(1.35);
+  z-index: 2;
+}
+
+.card2:active {
   transform: scale(0.95) rotateZ(1.7deg);
 }

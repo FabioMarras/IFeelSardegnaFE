@@ -7,6 +7,8 @@ import Register from "./component/Register";
 import Esperienze from "./component/Esperienze";
 import ProvinceCapoluoghi from "./component/ProvinceCapoluoghi";
 import VacanzeEstive from "./component/VacanzeEstive";
+import CentriTermali from "./component/CentriTermali";
+import VacanzeInvernali from "./component/VacanzeInvernali";
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
           <Route path="/esperienze" element={<Esperienze />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
           <Route path="/esperienze/estive" element={<VacanzeEstive />} />
-          <Route path="/esperienze/invernali" element={<VacanzeEstive />} />
-          <Route path="/esperienze/centritermali" element={<VacanzeEstive />} />
+          <Route path="/esperienze/invernali" element={<VacanzeInvernali />} />
+          <Route path="/esperienze/centritermali" element={<CentriTermali />} />
         </Routes>
       </BrowserRouter>
     </div>

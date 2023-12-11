@@ -9,6 +9,7 @@ import ProvinceCapoluoghi from "./component/ProvinceCapoluoghi";
 import VacanzeEstive from "./component/VacanzeEstive";
 import CentriTermali from "./component/CentriTermali";
 import VacanzeInvernali from "./component/VacanzeInvernali";
+import Preferiti from "./component/Preferiti";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/esperienze" element={<Esperienze />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
+          <Route path="/preferiti" element={<Preferiti />} />
           <Route path="/esperienze/estive" element={<VacanzeEstive />} />
           <Route path="/esperienze/invernali" element={<VacanzeInvernali />} />
           <Route path="/esperienze/centritermali" element={<CentriTermali />} />

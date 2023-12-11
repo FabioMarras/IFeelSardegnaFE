@@ -1,4 +1,4 @@
-import { ADD_MARE_AI_PREFERITI, REMOVE_MARE_AI_PREFERITI } from "../actions";
+import { ADD_MARE_AI_PREFERITI, REMOVE_MARE_DAI_PREFERITI } from "../actions";
 
 const initialState = {
   preferiti: [],
@@ -15,7 +15,7 @@ const MariPrefer = (state = initialState, action) => {
 
       return state;
 
-    case REMOVE_MARE_AI_PREFERITI:
+    case REMOVE_MARE_DAI_PREFERITI:
       return {
         ...state,
         preferiti: Array.isArray(state.preferiti)

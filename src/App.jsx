@@ -10,6 +10,7 @@ import VacanzeEstive from "./component/VacanzeEstive";
 import CentriTermali from "./component/CentriTermali";
 import VacanzeInvernali from "./component/VacanzeInvernali";
 import Preferiti from "./component/Preferiti";
+import Profile from "./component/Profile";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profilo" element={<Profile />} />
           <Route path="/esperienze" element={<Esperienze />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
           <Route path="/preferiti" element={<Preferiti />} />

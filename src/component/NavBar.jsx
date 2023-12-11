@@ -36,7 +36,7 @@ const NavBar = () => {
           <Nav>
             {token ? (
               <NavDropdown title={`Benvenuto ${userName}`} id="basic-nav-dropdown" className="z-2">
-                <NavDropdown.Item href="#">Profilo</NavDropdown.Item>
+                <NavDropdown.Item href="/profilo">Profilo</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             ) : (

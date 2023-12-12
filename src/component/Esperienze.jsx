@@ -20,7 +20,7 @@ const Esperienze = () => {
               </NavLink>
             </div>
             <div className="blob"></div>
-            <span className="z-1 fs-3 fw-bold mb-auto mt-1">Vacanze estive</span>
+            <span className="z-2 fs-3 fw-bold mb-auto mt-1">Vacanze estive</span>
           </Col>
           <Col xs="4" className="card mx-4 mb-3">
             <div className="bg">
@@ -29,7 +29,7 @@ const Esperienze = () => {
               </NavLink>
             </div>
             <div className="blob2"></div>
-            <span className="z-1 fs-3 fw-bold mb-auto mt-1">Centri termali</span>
+            <span className="z-2 fs-3 fw-bold mb-auto mt-1">Centri termali</span>
           </Col>
 
           <Col xs="4" className="card mx-4 mb-3">
@@ -39,7 +39,7 @@ const Esperienze = () => {
               </NavLink>
             </div>
             <div className="blob1"></div>
-            <span className="z-1 fs-3 fw-bold mb-auto mt-1">Vacanze invernali</span>
+            <span className="z-2 fs-3 fw-bold mb-auto mt-1">Vacanze invernali</span>
           </Col>
         </Row>
       </div>

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import MariPrefer from "../redux/reducer/MariPrefer";
+import { Nav } from "react-bootstrap";
 
 const Preferiti = () => {
   const cityPrefer = useSelector((state) => state.addCityPrefer.preferiti);
@@ -33,7 +34,12 @@ const Preferiti = () => {
           )}
         </div>
       ) : (
-        <h3 className="mt-3">Hey, non hai ancora una città preferita.</h3>
+        <div>
+          <h4 className="mt-3">Aggiungi le tue città o i tuoi mari preferiti dalla sezione:</h4>
+          <Nav.Link href="/esperienze" className="fw-bolder">
+            <h3 className="hover-underline-animation text-success">Esperienze</h3>
+          </Nav.Link>
+        </div>
       )}
       <Footer />
     </>

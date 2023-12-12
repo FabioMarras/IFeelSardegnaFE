@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaGithub, FaHeart } from "react-icons/fa";
+import { FaHeart, FaHeartBroken, FaTimes } from "react-icons/fa";
 
 const VacanzeEstive = () => {
   const token = useSelector((state) => state.content);
@@ -13,6 +13,8 @@ const VacanzeEstive = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [size, setSize] = useState(10);
   const [order, setOrder] = useState("id");
+  const [isClickedon, setIsClickedon] = useState(false);
+  const [isClickedoff, setIsClickedoff] = useState(false);
 
   const fetchMari = async () => {
     try {
@@ -85,6 +87,10 @@ const VacanzeEstive = () => {
       type: "ADD_MARE_AI_PREFERITI",
       payload: mare,
     });
+    setIsClickedon(true);
+    setTimeout(() => {
+      setIsClickedon(false);
+    }, 2000);
   };
 
   const removeMareAiPreferiti = (mare) => {
@@ -92,6 +98,10 @@ const VacanzeEstive = () => {
       type: "REMOVE_MARE_DAI_PREFERITI",
       payload: mare,
     });
+    setIsClickedoff(true);
+    setTimeout(() => {
+      setIsClickedoff(false);
+    }, 2000);
   };
 
   const dispatch = useDispatch();
@@ -101,6 +111,10 @@ const VacanzeEstive = () => {
       type: "ADD_CITA_AI_PREFERITI",
       payload: città,
     });
+    setIsClickedon(true);
+    setTimeout(() => {
+      setIsClickedon(false);
+    }, 2000);
   };
 
   const removeCittàAiPreferiti = (città) => {
@@ -108,6 +122,10 @@ const VacanzeEstive = () => {
       type: "REMOVE_CITTÀ_DAI_PREFERITI",
       payload: città,
     });
+    setIsClickedoff(true);
+    setTimeout(() => {
+      setIsClickedoff(false);
+    }, 2000);
   };
 
   return (
@@ -149,27 +167,27 @@ const VacanzeEstive = () => {
             backgroundSize: "cover",
           }}
         >
+          <FaTimes className="fa-mixer-icon" onClick={closeModal} />
           <h2>{selectedCittà ? selectedCittà.name : null}</h2>
           <p>{selectedCittà ? selectedCittà.text : null}</p>
-          <button className="btn btn-secondary" onClick={closeModal}>
-            CLOSE
-          </button>
-          <button className="btn btn-primary">
+
+          <div className="d-flex">
             <FaHeart
-              style={{ fontSize: "xx-large" }}
+              className="m-2"
+              style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedon ? "red" : "black" }}
               onClick={() => {
                 addCittàAiPreferiti(selectedCittà);
               }}
             />
-          </button>
-          <button className="btn btn-primary">
-            <FaHeart
-              style={{ fontSize: "xx-large" }}
+
+            <FaHeartBroken
+              className="m-2"
+              style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedoff ? "red" : "black" }}
               onClick={() => {
                 removeCittàAiPreferiti(selectedCittà);
               }}
             />
-          </button>
+          </div>
         </div>
       </Modal>
 
@@ -208,27 +226,26 @@ const VacanzeEstive = () => {
             backgroundSize: "cover",
           }}
         >
+          <FaTimes className="fa-mixer-icon" onClick={closeModalMare} />
           <h2>{selectedMare ? selectedMare.name : null}</h2>
           <p>{selectedMare ? selectedMare.text : null}</p>
-          <button className="btn btn-secondary" onClick={closeModalMare}>
-            CLOSE
-          </button>
-          <button className="btn btn-primary">
+
+          <div className="d-flex">
             <FaHeart
-              style={{ fontSize: "xx-large" }}
+              className="m-2"
+              style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedon ? "red" : "black" }}
               onClick={() => {
                 addMareAiPreferiti(selectedMare);
               }}
             />
-          </button>
-          <button className="btn btn-primary">
-            <FaHeart
-              style={{ fontSize: "xx-large" }}
+            <FaHeartBroken
+              className="m-2"
+              style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedoff ? "red" : "black" }}
               onClick={() => {
                 removeMareAiPreferiti(selectedMare);
               }}
             />
-          </button>
+          </div>
         </div>
       </Modal>
 

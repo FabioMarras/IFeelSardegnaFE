@@ -5,9 +5,127 @@ import mamuthones from "../mamuthones.jpeg";
 import ichnusa from "../ichnusa.jpg";
 import mare from "../mare.jpg";
 import inverno from "../mercatini-di-natale-in-sardegna.jpg";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import Select from "react-select";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedMari, setSelectedMari] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [mari, setMari] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCityInfo, setSelectedCityInfo] = useState(null);
+  const [selectedMariInfo, setSelectedMariInfo] = useState(null);
+  const [mariSelected, setMariSelected] = useState(null);
+  const [citySelected, setCitySelected] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [info, setInfo] = useState(null);
+  const [error, setError] = useState(null);
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
+  const token = useSelector((state) => state.mainReducer?.content?.accessToken[0]);
+
+  const fetchAddComments = async () => {
+    try {
+      const updatedInfo = {
+        testo: commentText,
+      };
+      const resp = await fetch(`http://localhost:3001/recensioni/città/${selectedCityInfo.id}`, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ` + token,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updatedInfo),
+      });
+      if (resp.ok) {
+        setCommentText("");
+        const updatedComments = [...comments, { testo: commentText }];
+        setComments(updatedComments);
+      } else {
+        setError("Qualche campo non è corretto!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchAddCommentsMari = async () => {
+    try {
+      const updatedInfo = {
+        testo: commentText,
+      };
+      const resp = await fetch(`http://localhost:3001/recensioni/mari/${selectedMariInfo.id}`, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ` + token,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updatedInfo),
+      });
+      if (resp.ok) {
+        setCommentText("");
+        const updatedComments = [...comments, { testo: commentText }];
+        setComments(updatedComments);
+      } else {
+        setError("Qualche campo non è corretto!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/città")
+      .then((response) => response.json())
+      .then((data) => {
+        const cityNames = data.content.map((city) => city.name);
+        setCities(cityNames);
+        const allCity = data.content;
+        setCitySelected(allCity);
+      })
+      .catch((error) => {
+        console.error("Errore durante il recupero delle città:", error);
+      });
+    fetch("http://localhost:3001/mari")
+      .then((response) => response.json())
+      .then((data) => {
+        const mariNames = data.content.map((mari) => mari.name);
+        setMari(mariNames);
+        const allMari = data.content;
+        setMariSelected(allMari);
+      })
+      .catch((error) => {
+        console.error("Errore durante il recupero dei mari:", error);
+      });
+  }, [selectedCityInfo]);
+
+  const handleChange = (selectedOption) => {
+    const cityDetails = citySelected.find((city) => city.name === selectedOption.value);
+    setSelectedCityInfo(cityDetails);
+    setSelectedCity(selectedOption);
+    const mariDetails = mariSelected.find((mari) => mari.name === selectedOption.value);
+    setSelectedMariInfo(mariDetails);
+    setSelectedMari(selectedOption);
+  };
+
+  const handleInputChange = (input) => {
+    setInputValue(input);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedCityInfo(null);
+    setSelectedMariInfo(null);
+    setInputValue("");
+  };
+
   return (
     <>
       <NavBar />
@@ -27,16 +145,74 @@ const Home = () => {
       </section>
       <section className="mt-4">
         <h3>Scoprici</h3>
-        <div class="input-container">
-          <input
-            type="text"
-            id="input"
-            required=""
+        <div className="input-container">
+          <Select
+            style={{ paddingLeft: "400px" }}
+            value={selectedCity}
+            inputValue={inputValue}
+            onChange={handleChange}
+            onInputChange={handleInputChange}
+            options={[
+              ...cities.map((city) => ({ value: city, label: `Città: ${city}` })),
+              ...mari.map((mare) => ({ value: mare, label: `Mare: ${mare}` })),
+            ]}
             placeholder="Cerca città, mari, esperienze!"
-            className="text-center"
-          ></input>
-          <div class="underline"></div>
+            isSearchable
+          />
+          <Button className="mt-2" onClick={openModal}>
+            Visualizza
+          </Button>
         </div>
+        <Modal show={modalOpen} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedCityInfo?.label}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {selectedCityInfo && (
+              <>
+                <p>Nome: {selectedCityInfo.name}</p>
+                <p>Descrizione: {selectedCityInfo.text}</p>
+
+                <div className="my-3">
+                  <Form.Control
+                    className="my-1"
+                    type="text"
+                    placeholder="Scrivi la tua recensione qua"
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                  />
+                  <Button onClick={fetchAddComments}>Invia recensione</Button>
+                </div>
+                {selectedCityInfo.commenti &&
+                  selectedCityInfo.commenti.map((commento, index) => <p key={index}>Recensione: {commento.testo}</p>)}
+                {comments.map((commento, index) => (
+                  <p key={index}>Recensione: {commento.testo}</p>
+                ))}
+              </>
+            )}
+            {selectedMariInfo && (
+              <>
+                <p>Nome del mare: {selectedMariInfo.name}</p>
+                <p>Descrizione del mare: {selectedMariInfo.text}</p>
+                <div className="my-3">
+                  <Form.Control
+                    className="my-1"
+                    type="text"
+                    placeholder="Scrivi la tua recensione qua"
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                  />
+                  <Button onClick={fetchAddCommentsMari}>Invia recensione</Button>
+                </div>
+                {selectedMariInfo.commenti &&
+                  selectedMariInfo.commenti.map((commento, index) => <p key={index}>Recensione: {commento.testo}</p>)}
+                {comments.map((commento, index) => (
+                  <p key={index}>Recensione: {commento.testo}</p>
+                ))}
+              </>
+            )}
+          </Modal.Body>
+        </Modal>
       </section>
       <section className="text-center my-4 mHome">
         <h3>Storie dalla Sardegna</h3>

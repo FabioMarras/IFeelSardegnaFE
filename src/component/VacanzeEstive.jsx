@@ -137,7 +137,7 @@ const VacanzeEstive = () => {
       </h3>
       <h4>Visita le nostre migliori città</h4>
       <Row className="justify-content-center mt-3">
-        {città.map((città, index) => (
+        {città.slice(0, 4).map((città, index) => (
           <Col
             xs="12"
             sm="6"
@@ -199,7 +199,7 @@ const VacanzeEstive = () => {
           backgroundSize: "cover",
         }}
       >
-        {mari.map((mare, index) => (
+        {mari.slice(0, 4).map((mare, index) => (
           <Col
             xs="12"
             sm="6"

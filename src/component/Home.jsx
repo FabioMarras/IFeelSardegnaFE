@@ -9,6 +9,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Select from "react-select";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -121,21 +122,19 @@ const Home = () => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setSelectedCityInfo(null);
-    setSelectedMariInfo(null);
     setInputValue("");
   };
 
   return (
     <>
       <NavBar />
-      <div className="position-relative mt-3">
+      <div className="position-relative ">
         <h1 className="imgHome textImgHome">UN ISOLA, UN POPOLO.</h1>
         <img src={foto} alt="" className="img-fluid" />
       </div>
       <section className="text-center my-4 mHome">
-        <h3>Un Isola che aspetta di essere scoperta. A modo vostro. </h3>
-        <p>
+        <h3 className="fontCursive">Un Isola che aspetta di essere scoperta. A modo vostro. </h3>
+        <p className="fontText">
           La Sardegna, gioiello nel cuore del Mar Mediterraneo, accoglie i visitatori con le sue spiagge di sabbia
           dorata lambite da acque cristalline. Un viaggio in questa affascinante isola offre un connubio tra la bellezza
           naturale, con paesaggi mozzafiato e una ricca storia che si riflette nei suoi siti archeologici e tradizioni
@@ -144,10 +143,10 @@ const Home = () => {
         </p>
       </section>
       <section className="mt-4">
-        <h3>Scoprici</h3>
+        <h3 className="fontCursive">Scoprici</h3>
         <div className="input-container">
           <Select
-            style={{ paddingLeft: "400px" }}
+            className="custom-select "
             value={selectedCity}
             inputValue={inputValue}
             onChange={handleChange}
@@ -156,7 +155,7 @@ const Home = () => {
               ...cities.map((city) => ({ value: city, label: `Città: ${city}` })),
               ...mari.map((mare) => ({ value: mare, label: `Mare: ${mare}` })),
             ]}
-            placeholder="Cerca città, mari, esperienze!"
+            placeholder="Cerca città e mari!"
             isSearchable
           />
           <Button className="mt-2" onClick={openModal}>
@@ -167,43 +166,66 @@ const Home = () => {
           <Modal.Header closeButton>
             <Modal.Title>{selectedCityInfo?.label}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="p-0">
             {selectedCityInfo && (
-              <>
-                <p>Nome: {selectedCityInfo.name}</p>
-                <p>Descrizione: {selectedCityInfo.text}</p>
-
-                <div className="my-3">
-                  <Form.Control
-                    className="my-1"
-                    type="text"
-                    placeholder="Scrivi la tua recensione qua"
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                  />
-                  <Button onClick={fetchAddComments}>Invia recensione</Button>
+              <div>
+                <div
+                  className="p-3 position-relative"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${
+                      selectedCityInfo ? selectedCityInfo.cover : null
+                    })`,
+                    backgroundSize: "cover",
+                    color: "white",
+                  }}
+                >
+                  <div className="overlay">
+                    <h3 className="fw-bold border-bottom border-white pb-2">{selectedCityInfo.name}</h3>
+                    <h5 className="fw-bold border-bottom border-white pb-2">{selectedCityInfo.text}</h5>
+                  </div>
                 </div>
+
+                {token && selectedCityInfo && (
+                  <div className="my-3">
+                    <Form.Control
+                      className="my-1"
+                      type="text"
+                      placeholder="Scrivi la tua recensione qua"
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                    />
+                    <Button onClick={fetchAddComments}>Invia recensione</Button>
+                  </div>
+                )}
+
+                <h4 className="ps-1">Recensioni degli utenti:</h4>
                 {selectedCityInfo.commenti &&
-                  selectedCityInfo.commenti.map((commento, index) => <p key={index}>Recensione: {commento.testo}</p>)}
+                  selectedCityInfo.commenti.map((commento, index) => (
+                    <p key={index} className="ps-3">
+                      <li> {commento.testo}</li>
+                    </p>
+                  ))}
                 {comments.map((commento, index) => (
                   <p key={index}>Recensione: {commento.testo}</p>
                 ))}
-              </>
+              </div>
             )}
             {selectedMariInfo && (
               <>
                 <p>Nome del mare: {selectedMariInfo.name}</p>
                 <p>Descrizione del mare: {selectedMariInfo.text}</p>
-                <div className="my-3">
-                  <Form.Control
-                    className="my-1"
-                    type="text"
-                    placeholder="Scrivi la tua recensione qua"
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                  />
-                  <Button onClick={fetchAddCommentsMari}>Invia recensione</Button>
-                </div>
+                {token && selectedMariInfo && (
+                  <div className="my-3">
+                    <Form.Control
+                      className="my-1"
+                      type="text"
+                      placeholder="Scrivi la tua recensione qua"
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                    />
+                    <Button onClick={fetchAddComments}>Invia recensione</Button>
+                  </div>
+                )}
                 {selectedMariInfo.commenti &&
                   selectedMariInfo.commenti.map((commento, index) => <p key={index}>Recensione: {commento.testo}</p>)}
                 {comments.map((commento, index) => (
@@ -215,45 +237,57 @@ const Home = () => {
         </Modal>
       </section>
       <section className="text-center my-4 mHome">
-        <h3>Storie dalla Sardegna</h3>
-        <p>Cercate l'ispirazione per il vostro viaggio nelle storie dalla Sardegna.</p>
+        <h3 className="fontCursive">Storie dalla Sardegna</h3>
+        <p className="fontText">Cercate l'ispirazione per il vostro viaggio nelle storie dalla Sardegna.</p>
       </section>
-      <Row className="justify-content-center mt-4">
-        <Col
-          xs="6"
-          className="cardHome mx-4 mb-3"
-          style={{
-            backgroundImage: `url(${mamuthones})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        ></Col>
-        <Col
-          xs="6"
-          className="cardHome mx-4 mb-3 "
-          style={{
-            backgroundImage: `url(${ichnusa})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        ></Col>
-        <Col
-          xs="6"
-          className="cardHome mx-4 mb-3"
-          style={{
-            backgroundImage: `url(${mare})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        ></Col>
-        <Col
-          xs="6"
-          className="cardHome mx-4 mb-3"
-          style={{
-            backgroundImage: `url(${inverno})`,
-            backgroundSize: "cover",
-          }}
-        ></Col>
+      <Row className="justify-content-center mt-4 my-row">
+        <Link to="/mamuthones" className="link-no-style">
+          <Col
+            xs="6"
+            md="3"
+            className="cardHome mx-4 mb-3"
+            style={{
+              backgroundImage: `url(${mamuthones})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          ></Col>
+        </Link>
+        <Link to="/ichnusa" className="link-no-style">
+          <Col
+            xs="6"
+            md="3"
+            className="cardHome mx-4 mb-3"
+            style={{
+              backgroundImage: `url(${ichnusa})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          ></Col>
+        </Link>
+        <Link to="/estate" className="link-no-style">
+          <Col
+            xs="6"
+            md="3"
+            className="cardHome mx-4 mb-3"
+            style={{
+              backgroundImage: `url(${mare})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          ></Col>
+        </Link>
+        <Link to="/mamuthones" className="link-no-style">
+          <Col
+            xs="6"
+            md="3"
+            className="cardHome mx-4 mb-3"
+            style={{
+              backgroundImage: `url(${inverno})`,
+              backgroundSize: "cover",
+            }}
+          ></Col>
+        </Link>
       </Row>
 
       <Footer />

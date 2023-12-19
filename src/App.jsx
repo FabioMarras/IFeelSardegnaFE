@@ -12,6 +12,9 @@ import CentriTermali from "./component/CentriTermali";
 import VacanzeInvernali from "./component/VacanzeInvernali";
 import Preferiti from "./component/Preferiti";
 import Profile from "./component/Profile";
+import Mamuthones from "./component/Mamuthones";
+import Ichnusa from "./component/Icnhusa";
+import EstasteHP from "./component/EstateHP";
 
 function App() {
   return (
@@ -23,8 +26,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profilo" element={<Profile />} />
           <Route path="/esperienze" element={<Esperienze />} />
+          <Route path="/ichnusa" element={<Ichnusa />} />
+          <Route path="/estate" element={<EstasteHP />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
           <Route path="/preferiti" element={<Preferiti />} />
+          <Route path="/mamuthones" element={<Mamuthones />} />
           <Route path="/esperienze/estive" element={<VacanzeEstive />} />
           <Route path="/esperienze/invernali" element={<VacanzeInvernali />} />
           <Route path="/esperienze/centritermali" element={<CentriTermali />} />

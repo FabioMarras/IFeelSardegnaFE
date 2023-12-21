@@ -15,6 +15,7 @@ import Profile from "./component/Profile";
 import Mamuthones from "./component/Mamuthones";
 import Ichnusa from "./component/Icnhusa";
 import EstasteHP from "./component/EstateHP";
+import AutunnoInBarbagia from "./component/AutunnoInBarbagia";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/esperienze" element={<Esperienze />} />
           <Route path="/ichnusa" element={<Ichnusa />} />
           <Route path="/estate" element={<EstasteHP />} />
+          <Route path="/autunnoBarbagia" element={<AutunnoInBarbagia />} />
           <Route path="/province" element={<ProvinceCapoluoghi />} />
           <Route path="/preferiti" element={<Preferiti />} />
           <Route path="/mamuthones" element={<Mamuthones />} />

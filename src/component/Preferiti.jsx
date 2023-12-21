@@ -7,6 +7,7 @@ import { Nav } from "react-bootstrap";
 const Preferiti = () => {
   const cityPrefer = useSelector((state) => state.addCityPrefer.preferiti);
   const mariPrefer = useSelector((state) => state.MariPrefer.preferiti);
+  const TermePrefer = useSelector((state) => state.TermePrefer.preferiti);
 
   return (
     <>
@@ -32,13 +33,26 @@ const Preferiti = () => {
               ))}
             </>
           )}
+          {TermePrefer.length > 0 && (
+            <>
+              <h3>Le mie terme preferite:</h3>
+              {TermePrefer.map((terma, index) => (
+                <h5 key={index}>{terma.name}</h5>
+              ))}
+            </>
+          )}
         </div>
       ) : (
         <div>
-          <h4 className="mt-3">Aggiungi le tue città o i tuoi mari preferiti dalla sezione:</h4>
-          <Nav.Link href="/esperienze" className="fw-bolder">
-            <h3 className="hover-underline-animation text-success">Esperienze</h3>
-          </Nav.Link>
+          <h4 className="mt-3">Aggiungi le tue città, i tuoi mari preferiti o le tue terme dalla sezione:</h4>
+          <div className="d-flex justify-content-center">
+            <Nav.Link href="/esperienze/estive" className="fw-bolder p-3">
+              <h3 className="hover-underline-animation text-success">Città/mari</h3>
+            </Nav.Link>
+            <Nav.Link href="/esperienze/centritermali" className="fw-bolder p-3">
+              <h3 className="hover-underline-animation text-success">Terme</h3>
+            </Nav.Link>
+          </div>
         </div>
       )}
       <Footer />

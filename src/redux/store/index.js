@@ -5,6 +5,7 @@ import mainReducer from "../reducer";
 import { persistStore } from "redux-persist";
 import CityPrefer from "../reducer/AddPrefer";
 import MariPrefer from "../reducer/MariPrefer";
+import TermePrefer from "../reducer/TermePrefer";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   mainReducer: mainReducer,
   addCityPrefer: CityPrefer,
   MariPrefer: MariPrefer,
+  TermePrefer: TermePrefer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

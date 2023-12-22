@@ -186,15 +186,17 @@ const Home = () => {
                 </div>
 
                 {token && selectedCityInfo && (
-                  <div className="my-3">
+                  <div className="my-3 text-center">
                     <Form.Control
-                      className="my-1"
+                      className="my-1 text-center px-2 w-75 mx-auto"
                       type="text"
                       placeholder="Scrivi la tua recensione qua"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
                     />
-                    <Button onClick={fetchAddComments}>Invia recensione</Button>
+                    <Button onClick={fetchAddComments} className="mt-1">
+                      Invia recensione
+                    </Button>
                   </div>
                 )}
 
@@ -217,7 +219,7 @@ const Home = () => {
                 {token && selectedMariInfo && (
                   <div className="my-3">
                     <Form.Control
-                      className="my-1"
+                      className="my-1 mx-5"
                       type="text"
                       placeholder="Scrivi la tua recensione qua"
                       value={commentText}

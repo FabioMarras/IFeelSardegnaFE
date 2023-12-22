@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-import MariPrefer from "../redux/reducer/MariPrefer";
-import { Nav } from "react-bootstrap";
+import { Card, Nav, Row } from "react-bootstrap";
 
 const Preferiti = () => {
   const cityPrefer = useSelector((state) => state.addCityPrefer.preferiti);
@@ -19,9 +18,15 @@ const Preferiti = () => {
           {cityPrefer.length > 0 && (
             <>
               <h3>Le mie città preferite:</h3>
-              {cityPrefer.map((città, index) => (
-                <h5 key={index}>{città.name}</h5>
-              ))}
+              <Row className="mx-2 justify-content-center">
+                {cityPrefer.map((città, index) => (
+                  <Card className="max-w-sm mx-1 my-2 p-0" cols="1" colsm="2" colm="4" coll="5">
+                    <img src={città.cover} alt="" style={{ width: "100%", height: "auto" }} />
+                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{città.name}</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{città.text}</p>
+                  </Card>
+                ))}
+              </Row>
             </>
           )}
 
@@ -29,7 +34,10 @@ const Preferiti = () => {
             <>
               <h3>I miei mari preferiti:</h3>
               {mariPrefer.map((mare, index) => (
-                <h5 key={index}>{mare.name}</h5>
+                <Card className="max-w-sm" imgAlt="imgMare" imgSrc={mare.cover}>
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mare.name}</h5>
+                  <p className="font-normal text-gray-700 dark:text-gray-400">{mare.text}</p>
+                </Card>
               ))}
             </>
           )}

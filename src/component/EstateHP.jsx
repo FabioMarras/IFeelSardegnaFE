@@ -1,7 +1,7 @@
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-import { FaHeart, FaHeartBroken, FaSearch, FaTimes, FaWhatsappSquare } from "react-icons/fa";
+import { FaHeart, FaHeartBroken, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -24,17 +24,27 @@ const EstasteHP = () => {
     setSelectedMare(null);
     setModalOpen(false);
   };
-  const [isClickedon, setIsClickedon] = useState(false);
-  const [isClickedoff, setIsClickedoff] = useState(false);
+  const [isClickedOn, setIsClickedOn] = useState(false);
+  const [isClickedOff, setIsClickedOff] = useState(false);
+
+  const handleHeartClick = () => {
+    setIsClickedOn(!isClickedOn);
+    addMareAiPreferiti(selectedMare);
+  };
+
+  const handleBrokenHeartClick = () => {
+    setIsClickedOff(!isClickedOff);
+    removeMareAiPreferiti(selectedMare);
+  };
 
   const addMareAiPreferiti = (mare) => {
     dispatch({
       type: "ADD_MARE_AI_PREFERITI",
       payload: mare,
     });
-    setIsClickedon(true);
+    setIsClickedOn(true);
     setTimeout(() => {
-      setIsClickedon(false);
+      setIsClickedOn(false);
     }, 2000);
   };
 
@@ -43,9 +53,9 @@ const EstasteHP = () => {
       type: "REMOVE_MARE_DAI_PREFERITI",
       payload: mare,
     });
-    setIsClickedoff(true);
+    setIsClickedOff(true);
     setTimeout(() => {
-      setIsClickedoff(false);
+      setIsClickedOff(false);
     }, 2000);
   };
 
@@ -188,7 +198,7 @@ const EstasteHP = () => {
       </div>
 
       <div>
-        <Modal isOpen={modalOpen} show={selectedMare !== null} toggle={closeModal} className="mt-3">
+        <Modal isOpen={modalOpen} show={selectedMare !== null} toggle={closeModal} className="mt-3 z-5">
           <div
             className="modal-content"
             style={{
@@ -197,35 +207,31 @@ const EstasteHP = () => {
             }}
           >
             <FaTimes className="fa-mixer-icon" onClick={closeModal} />
-            <h2>{selectedMare ? selectedMare.name : null}</h2>
-            <p>{selectedMare ? selectedMare.text : null}</p>
+            <h2 className="ps-2">{selectedMare ? selectedMare.name : null}</h2>
+            <p className="ps-2">{selectedMare ? selectedMare.text : null}</p>
 
             <div className="d-flex">
               <FaHeart
-                className="m-2"
-                style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedon ? "red" : "black" }}
-                onClick={() => {
-                  addMareAiPreferiti(selectedMare);
-                }}
+                className={`m-2 heart-icon ${isClickedOn ? "clicked" : ""}`}
+                style={{ fontSize: "xx-large", cursor: "pointer" }}
+                onClick={handleHeartClick}
               />
 
               <FaHeartBroken
-                className="m-2 "
-                style={{ fontSize: "xx-large", cursor: "pointer", color: isClickedoff ? "red" : "black" }}
-                onClick={() => {
-                  removeMareAiPreferiti(selectedMare);
-                }}
+                className={`m-2 heart-broken-icon ${isClickedOff ? "clicked" : ""}`}
+                style={{ fontSize: "xx-large", cursor: "pointer" }}
+                onClick={handleBrokenHeartClick}
               />
             </div>
           </div>
         </Modal>
 
         <h3>Ecco i mari secondo i tuoi filtri</h3>
-        <Row className="mx-2" cols="1" colsm="2" colm="4" coll="5">
+        <Row className="mx-2 z-1" cols="1" colsm="2" colm="4" coll="5">
           {mariSelected.map((m) => (
-            <Col className="d-flex justify-content-center my-2">
+            <Col className="d-flex justify-content-center my-2 z-1">
               <Card
-                className="cardHome2 justify-content-start"
+                className="cardHome2 justify-content-start z-1"
                 style={{
                   backgroundImage: `url(${m ? m.cover : null})`,
                   backgroundSize: "cover",

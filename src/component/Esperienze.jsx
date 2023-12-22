@@ -13,7 +13,7 @@ const Esperienze = () => {
       <h1>Esperienze</h1>
       <div className="d-flex justify-content-center">
         <Row className="justify-content-center">
-          <Col xs="4" className="card mx-4 mb-3 d-flex justify-content-center">
+          <Col xs="4" className="z-2 card mx-4 mb-3 d-flex justify-content-center">
             <div className="bg">
               <NavLink to="/esperienze/estive">
                 <img src={imgEstiva} alt="img" width={"250px"} />

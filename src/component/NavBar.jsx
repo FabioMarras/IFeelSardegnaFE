@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import logo from "../I FEEL SARDEGNA.png";
 import { logout } from "../redux/actions";
 import { FaHeart, FaPiedPiperAlt, FaRegCompass } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+  };
+
+  const handleDropdownClick = (e) => {
+    e.stopPropagation(); // Impedisce la propagazione dell'evento al container del dropdown
   };
 
   return (
@@ -22,12 +27,27 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/esperienze" className="fw-bolder">
+            <div className="d-flex align-items-center justify-content-center pb-1">
+              <Link
+                to="/esperienze"
+                className="z-3 fw-bolder"
+                style={{ fontSize: "large", cursor: "pointer", textDecoration: "none", color: "black" }}
+              >
+                <FaPiedPiperAlt className="mx-2 mb-1" />
+                Esperienze
+              </Link>
+              <NavDropdown title="" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/esperienze/estive">Estate</NavDropdown.Item>
+                <NavDropdown.Item href="/esperienze/centritermali">Terme</NavDropdown.Item>
+                <NavDropdown.Item href="/esperienze/invernali">Inverno</NavDropdown.Item>
+              </NavDropdown>
+            </div>
+            {/* <Nav.Link href="/esperienze" className="fw-bolder">
               <span className="m-2" style={{ fontSize: "large", cursor: "pointer" }}>
                 <FaPiedPiperAlt />
               </span>
               <span className="hover-underline-animation">Esperienze</span>
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link href="/province" className="fw-bolder">
               <span className="m-2" style={{ fontSize: "large", cursor: "pointer" }}>
                 <FaRegCompass />

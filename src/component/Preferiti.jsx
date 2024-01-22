@@ -33,20 +33,29 @@ const Preferiti = () => {
           {mariPrefer.length > 0 && (
             <>
               <h3>I miei mari preferiti:</h3>
-              {mariPrefer.map((mare, index) => (
-                <Card className="max-w-sm" imgAlt="imgMare" imgSrc={mare.cover}>
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mare.name}</h5>
-                  <p className="font-normal text-gray-700 dark:text-gray-400">{mare.text}</p>
-                </Card>
-              ))}
+              <Row className="mx-2 justify-content-center">
+                {mariPrefer.map((mare, index) => (
+                  <Card className="max-w-sm mx-1 my-2 p-0" cols="1" colsm="2" colm="4" coll="5">
+                    <img src={mare.cover} alt="" style={{ width: "100%", height: "auto" }} />
+                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mare.name}</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{mare.text}</p>
+                  </Card>
+                ))}
+              </Row>
             </>
           )}
           {TermePrefer.length > 0 && (
             <>
               <h3>Le mie terme preferite:</h3>
-              {TermePrefer.map((terma, index) => (
-                <h5 key={index}>{terma.name}</h5>
-              ))}
+              <Row className="mx-2 justify-content-center">
+                {TermePrefer.map((terma, index) => (
+                  <Card className="max-w-sm mx-1 my-2 p-0" cols="1" colsm="2" colm="4" coll="5">
+                    <img src={terma.cover} alt="" style={{ width: "100%", height: "auto" }} />
+                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{terma.name}</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{terma.text}</p>
+                  </Card>
+                ))}
+              </Row>
             </>
           )}
         </div>

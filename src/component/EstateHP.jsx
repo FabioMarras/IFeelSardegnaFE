@@ -62,12 +62,13 @@ const EstasteHP = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("http://localhost:3001/mari")
+    fetch("http://localhost:3001/mari?size=20")
       .then((response) => response.json())
       .then((data) => {
         const allMari = data.content;
         setMari(allMari);
         setMariSelected(allMari);
+        console.log(allMari);
       })
       .catch((error) => {
         console.error("Errore durante il recupero dei mari:", error);
@@ -200,29 +201,30 @@ const EstasteHP = () => {
       <div>
         <Modal isOpen={modalOpen} show={selectedMare !== null} toggle={closeModal} className="mt-3 z-5">
           <div
-            className="modal-content"
+            className="modal-content "
             style={{
               backgroundImage: `url(${selectedMare ? selectedMare.cover : null})`,
               backgroundSize: "cover",
+              height: "210px",
+              width: "100%",
             }}
-          >
-            <FaTimes className="fa-mixer-icon" onClick={closeModal} />
-            <h2 className="ps-2">{selectedMare ? selectedMare.name : null}</h2>
-            <p className="ps-2">{selectedMare ? selectedMare.text : null}</p>
+          ></div>
+          <FaTimes className="fa-mixer-icon text-danger" onClick={closeModal} style={{ fontSize: "x-large" }} />
+          <h2 className="fw-bold border-bottom border-white py-1 px-2">{selectedMare ? selectedMare.name : null}</h2>
+          <p className="fw-bold border-bottom border-white py-1 px-2">{selectedMare ? selectedMare.text : null}</p>
 
-            <div className="d-flex">
-              <FaHeart
-                className={`m-2 heart-icon ${isClickedOn ? "clicked" : ""}`}
-                style={{ fontSize: "xx-large", cursor: "pointer" }}
-                onClick={handleHeartClick}
-              />
+          <div className="d-flex">
+            <FaHeart
+              className={`m-2 heart-icon ${isClickedOn ? "clicked" : ""}`}
+              style={{ fontSize: "xx-large", cursor: "pointer" }}
+              onClick={handleHeartClick}
+            />
 
-              <FaHeartBroken
-                className={`m-2 heart-broken-icon ${isClickedOff ? "clicked" : ""}`}
-                style={{ fontSize: "xx-large", cursor: "pointer" }}
-                onClick={handleBrokenHeartClick}
-              />
-            </div>
+            <FaHeartBroken
+              className={`m-2 heart-broken-icon ${isClickedOff ? "clicked" : ""}`}
+              style={{ fontSize: "xx-large", cursor: "pointer" }}
+              onClick={handleBrokenHeartClick}
+            />
           </div>
         </Modal>
 

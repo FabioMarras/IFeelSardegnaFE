@@ -52,8 +52,6 @@ const Login = () => {
       <NavBar />
       <Row className="justify-content-center">
         <Col xs="8" className="mt-5">
-          <h1 className="mt-4">I feel Sardegna</h1>
-
           <Row className="justify-content-end mt-5">
             <Form
               onSubmit={(e) => {
@@ -61,7 +59,7 @@ const Login = () => {
               }}
             >
               <Form.Group className="mb-3  text-start fw-bold text-center text-white">
-                <Form.Label column sm="2">
+                <Form.Label column sm="2" className="Flex-black">
                   E-mail
                 </Form.Label>
                 <Form.Control
@@ -72,7 +70,7 @@ const Login = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3  text-start fw-bold text-center text-white">
-                <Form.Label column sm="2">
+                <Form.Label column sm="2" className="Flex-black">
                   Password
                 </Form.Label>
                 <Form.Control

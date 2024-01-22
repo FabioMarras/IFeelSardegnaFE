@@ -44,7 +44,7 @@
   background-image: url("../public/myImg/fadi-al-shami-jTmbyBnbaIE-unsplash-scaled.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 100%;
   color: rgb(0, 0, 0);
   padding: 0;
 }
@@ -652,4 +652,10 @@
 
 .ZModal {
   z-index: 100;
+}
+
+.Flex-black {
+  color: black;
+  display: flex;
+  font-size: large;
 }

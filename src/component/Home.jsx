@@ -90,7 +90,7 @@ const Home = () => {
       .catch((error) => {
         console.error("Errore durante il recupero delle città:", error);
       });
-    fetch("http://localhost:3001/mari")
+    fetch("http://localhost:3001/mari?size=20")
       .then((response) => response.json())
       .then((data) => {
         const mariNames = data.content.map((mari) => mari.name);
@@ -213,27 +213,54 @@ const Home = () => {
               </div>
             )}
             {selectedMariInfo && (
-              <>
-                <p>Nome del mare: {selectedMariInfo.name}</p>
-                <p>Descrizione del mare: {selectedMariInfo.text}</p>
+              <div>
+                <div
+                  className="p-3 position-relative"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${
+                      selectedMariInfo ? selectedMariInfo.cover : null
+                    })`,
+                    backgroundSize: "cover",
+                    color: "white",
+                  }}
+                >
+                  <div className="overlay">
+                    <h3 className="fw-bold border-bottom border-white pb-2">{selectedMariInfo.name}</h3>
+                    <h5 className="fw-bold border-bottom border-white pb-2">{selectedMariInfo.text}</h5>
+                  </div>
+                </div>
+
                 {token && selectedMariInfo && (
-                  <div className="my-3">
+                  <div className="my-3 text-center">
                     <Form.Control
-                      className="my-1 mx-5"
+                      className="my-1 text-center px-2 w-75 mx-auto"
                       type="text"
                       placeholder="Scrivi la tua recensione qua"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
                     />
-                    <Button onClick={fetchAddComments}>Invia recensione</Button>
+                    <Button onClick={fetchAddComments} className="mt-1">
+                      Invia recensione
+                    </Button>
                   </div>
                 )}
-                {selectedMariInfo.commenti &&
-                  selectedMariInfo.commenti.map((commento, index) => <p key={index}>Recensione: {commento.testo}</p>)}
-                {comments.map((commento, index) => (
-                  <p key={index}>Recensione: {commento.testo}</p>
-                ))}
-              </>
+
+                {selectedMariInfo.commenti ? (
+                  <div>
+                    <h4 className="ps-1">Recensioni degli utenti:</h4>
+
+                    {selectedMariInfo.commenti &&
+                      selectedMariInfo.commenti.map((commento, index) => (
+                        <p key={index} className="ps-3">
+                          <li> {commento.testo}</li>
+                        </p>
+                      ))}
+                    {comments.map((commento, index) => (
+                      <p key={index}>Recensione: {commento.testo}</p>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             )}
           </Modal.Body>
         </Modal>
